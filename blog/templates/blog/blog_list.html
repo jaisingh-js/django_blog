@@ -1,0 +1,41 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="container is-fluid">
+
+<div class="columns mt-6">
+
+    {% for object in object_list %}
+
+    <div class="column is-6">
+        <div class="card">
+            <div class="card-content">
+            <header class="title is-5">
+                {{object.title|capfirst}}
+            </header>
+            {% if object.image %}
+            <div class="card-image">
+                <div class-"image">
+                    <img src="{{object.image.url}}" alt="">
+                </div>
+            </div>
+            {% endif %}
+            <div class="content">
+                {{object.content|slice:"0:100"}}...
+            </div>
+            <footer class="card-footer">
+                <a class="button is-link" href="{{object.get_absolute_url}}">read more</a>
+            </footer>
+
+            </div>
+            
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

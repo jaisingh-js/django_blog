@@ -1,0 +1,53 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="hero has-background-warning-light">
+<div class="hero-body">
+<div class="title">{{object.title|capfirst}}</div>
+<p class="is-size-6-mobile">created on: {{object.created_on}}</p>
+<p class="is-size-6-mobile">last updated: {{object.last_updated}}</p>
+</div>
+</section>
+
+
+{% if object.image %}
+<div class="Image level">
+    <img src="{{object.image.url}}" alt="">
+</div>
+{% endif %}
+
+<div class="container is-fluid">
+
+<div class="mt-5 content">
+    <p class="is-size-5-mobile">{{object.content}}</p>
+</div>
+
+<hr />
+
+<ul>
+    <h3 class="title is-5">Comments:</h3>
+<div class="cloumns">
+{% for comment in object.comments.all %}
+    <li class="cloumn is-12 box">
+        <span class="title is-6 inline">{{comment.name}} : </span>
+        <span class="is-italic">
+            {{comment.comment}}
+        </span>
+        <div class="has-text-right-mobile is-size-7-mobile">{{comment.created_on}}</div>
+    </li>
+{% endfor %}
+</div>
+</ul>
+
+<br />
+<div class="title is-5">Add comment</div>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="button is-primary" type="submit" value="comment">
+</form>
+
+</div>
+
+{% endblock %}
